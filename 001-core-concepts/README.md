@@ -1,6 +1,5 @@
 
 ## Namespace
-
 ```
 # Create
 kubectl create namespace test
@@ -22,3 +21,7 @@ kubectl describe --filename 001-test-namespace.yaml
 ```
 
 
+## Reference Blogs:
+
+### Namespace
+https://www.goglides.dev/bkpandey/kubernetes-namespaces-how-to-isolate-resources-in-a-cluster-all-you-need-to-know-for-cka-certification-3om6
