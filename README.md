@@ -1,0 +1,1 @@
+If you find a bug in this project, please report it to the https://www.goglides.dev/ forum.
