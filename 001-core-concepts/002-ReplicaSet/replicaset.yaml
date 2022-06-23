@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replica-set
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend # label should match the pods label which we have to manage
+  template:
+    metadata:
+      labels:
+        app: backend # pods label
+    spec:
+      containers:
+        - name: app-container
+          image: nginx
