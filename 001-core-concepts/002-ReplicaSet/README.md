@@ -27,6 +27,6 @@ kubectl describe --filename replicaset.yaml
 
 ## Reference Blogs:
 
-### Namespace
+### ReplicaSet
 
 https://www.goglides.dev/nirajpdn/replicaset-how-it-manages-pods-in-k8s-cluster-1m2p
