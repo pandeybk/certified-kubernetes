@@ -1,0 +1,54 @@
+# kubectl create -f 001-core-concepts/003-pod-multi-container.yaml
+---
+apiVersion: v1
+kind: Pod # Pod is a collection of containers that can run on a host
+metadata:
+  name: cka-goglides-dev-pod # name of the pod
+  labels:
+    app: cka-goglides-dev # label for the pod
+    tier: pod
+spec:
+  containers:
+  - name: cka-goglides-dev-container1 # name of the container
+    image: nginx:1.13 # image to use
+    imagePullPolicy: Always # Always pull the image from the registry, if not present locally. This is the default.
+    ports:
+    - containerPort: 80 # port to expose
+      protocol: TCP # protocol to use for the port mapping ( example TCP, UDP, or SCTP)
+    volumeMounts:
+    - name: cka-goglides-dev-volume1 # name of the volume
+      mountPath: /usr/share/nginx/html # path to mount the volume to (example /usr/share/nginx/html)
+      readOnly: true # read only access to the volume
+  - name: cka-goglides-dev-container2 # name of the container
+    image: mysql # image to use
+    imagePullPolicy: Always # Always pull the image from the registry, if not present locally. This is the default.
+    ports:
+    - containerPort: 3060 # port to expose
+      protocol: TCP # protocol to use for the port mapping ( example TCP, UDP, or SCTP)
+    volumeMounts:
+    - name: cka-goglides-dev-volume2 # name of the volume
+      mountPath: /usr/share/data # path to mount the volume to (example /usr/share/nginx/html)
+      readOnly: true # read only access to the volume
+    env:
+    - name: MYSQL_ROOT_PASSWORD # name of the environment variable
+      value: "root" # value of the environment variable
+    - name: MYSQL_ALLOW_EMPTY_PASSWORD 
+      value: "yes"
+    - name: MYSQL_DATABASE
+      value: "cka-goglides-dev"
+  volumes:
+  - name: cka-goglides-dev-volume1 # name of the volume
+    emptyDir: {} # empty directory to mount to the pod (example /usr/share/nginx/html), data will lost if the pod is restarted
+  - name: cka-goglides-dev-volume2 # name of the volume
+    emptyDir: {} # empty directory to mount to the pod (example /usr/share/nginx/html), data will lost if the pod is restarted
+  initContainers:
+  - name: cka-goglides-dev-init # name of the init container
+    image: busybox # image to use
+    imagePullPolicy: Always # Always pull the image from the registry, if not present locally. This is the default.
+    command:
+    - sleep
+    - "10"
+  restartPolicy: Never # Never restart the pod if it fails
+  terminationGracePeriodSeconds: 30 # 30 seconds to give the pod to shut down gracefully
+  dnsPolicy: ClusterFirst # Use the cluster DNS
+
