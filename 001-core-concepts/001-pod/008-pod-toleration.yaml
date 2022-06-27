@@ -80,10 +80,15 @@ spec:
     kubernetes.io/hostname: minikube # node to run the pod on for minikube this is the default value
     role: worker # role of the node
     zone: cka-goglides-dev-zone # zone of the node
+  # kubectl taint node minikube lowresource=true:NoSchedule
+  # kubectl taint node minikube smellsbad=true:PreferNoSchedule
+  # kubectl taint node minikube node.kubernetes.io/unreachable=true:NoExecute
+  # kubectl taint node minikube key1=value1:NoSchedule // add a taint to the node
+  # kubectl taint node minikube key1=value1:NoSchedule- // remove a taint from the node
   tolerations:
-  - key: node.kubernetes.io/not-ready
-    operator: Exists
-    effect: NoSchedule
-  - key: node.kubernetes.io/unreachable
-    operator: Exists
-    effect: NoSchedule
+  - key: lowresource # key of the toleration 
+    operator: Exists # Exists is a toleration operator that matches when the key is present, regardless of its value. There are two valid operator values: Exists and Equal.
+    effect: NoSchedule # do not schedule the pod if the node is not ready, there are other options like NoExecute, PreferNoSchedule, and PreferNoExecute
+  # - key: smellsbad
+  #   operator: Exists
+  #   effect: PreferNoSchedule
