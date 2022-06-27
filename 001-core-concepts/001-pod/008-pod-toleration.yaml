@@ -89,6 +89,6 @@ spec:
   - key: lowresource # key of the toleration 
     operator: Exists # Exists is a toleration operator that matches when the key is present, regardless of its value. There are two valid operator values: Exists and Equal.
     effect: NoSchedule # do not schedule the pod if the node is not ready, there are other options like NoExecute, PreferNoSchedule, and PreferNoExecute
-  # - key: smellsbad
+  # - key: badsmell
   #   operator: Exists
-  #   effect: PreferNoSchedule
+  #   effect: NoExecute
