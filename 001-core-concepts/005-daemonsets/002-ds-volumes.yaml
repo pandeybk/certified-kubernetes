@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: DaemonSet # DaemonSet is a collection of pods with a common management policy. DaemonSets are best used for pods that are long running or do not need to be restarted frequently.
+metadata:
+  name: myapp-ds # name of the daemonset
+  labels:
+    app: myapp # label for the daemonset
+    tier: daemonset
+    organization: goglides
+    domain: www.goglides.dev
+spec:
+  selector:
+    matchLabels:
+      app: myapp # label for the daemonset
+      tier: daemonset
+      organization: goglides
+      domain: www.goglides.dev
+  template:
+    metadata:
+      labels:
+        app: myapp # label for the daemonset
+        tier: daemonset
+        organization: goglides
+        domain: www.goglides.dev
+    spec:
+      containers:
+      - name: myapp-ds # name of the container
+        image: nginx:1.13 # image to use
+        imagePullPolicy: Always # Always pull the image from the registry, if not present locally. This is the default.
+        ports:
+        - containerPort: 80 # port to expose
+          protocol: TCP # protocol to use for the port mapping ( example TCP, UDP, or SCTP)
+        volumeMounts:
+        - name: myapp-ds-volume # name of the volume
+          mountPath: /var/www/html # path to mount the volume
+          readOnly: true # read-only volume
+      volumes:
+      - name: myapp-ds-volume # name of the volume
+        emptyDir: {} # empty directory to mount to the pod (example /var/www/html), data will lost if the pod is restarted

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-deployment
+  labels:
+    app: frontend # Deployment labels to match with replicaset labels and pods labels
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend # Replicaset to manage pods with labels
+  template:
+    metadata:
+      labels:
+        app: frontend # Pods labels
+    spec:
+      # hostNetwork: true
+      containers:
+        - name: app-container
+          image: nirajpdn/react-app:v1
+          ports:
+            - containerPort: 3000
+              protocol: TCP

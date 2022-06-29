@@ -1,0 +1,7 @@
+## kind create cluster --name multinode  --config 005-cluster-life-cycle/001-kind/001-multinode.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+- role: worker

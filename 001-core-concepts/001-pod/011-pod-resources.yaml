@@ -14,4 +14,10 @@ spec:
     ports:
     - containerPort: 8080 # port to expose
       protocol: TCP # protocol to use for the port mapping ( example TCP, UDP, or SCTP)
-  nodeName: minikube
+    resources:
+      limits:
+        cpu: 8000m
+        memory: 200000Mi
+      requests:
+        cpu: 8000m
+        memory: 200000Mi

@@ -25,7 +25,7 @@ spec:
     imagePullPolicy: Always # Always pull the image from the registry, if not present locally. This is the default.
     command:
     - sleep
-    - "10"
+    - "1000"
     volumeMounts:
     - name: cka-goglides-dev-volume # name of the volume
       mountPath: /usr/share/nginx/html # path to mount the volume to (example /usr/share/nginx/html)
