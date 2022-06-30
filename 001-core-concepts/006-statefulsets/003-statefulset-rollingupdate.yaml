@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1 # version of the Kubernetes API
+kind: StatefulSet # StatefulSet is a collection of pods with a common management policy. StatefulSets are best used for pods that are long running or do not need to be restarted frequently.
+metadata:
+  name: mystatefulset # name of the statefulset
+spec:
+  selector:
+    matchLabels:
+      app: myapp # label for the statefulset
+  serviceName: myapp # name of the service, its a headless service, used to control the network domain
+  replicas: 10 # number of replicas
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: k8s.gcr.io/nginx-slim:0.7
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  updateStrategy:
+    type: RollingUpdate # RollingUpdate is the default strategy for StatefulSet. It will replace old pods with new ones.
+    rollingUpdate:
+      # This field is alpha-level and is only honored by servers that enable the MaxUnavailableStatefulSet feature
+      maxUnavailable: 50% # maxUnavailable is the maximum number of pods that can be unavailable during the update.
+      # partition: 1
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
