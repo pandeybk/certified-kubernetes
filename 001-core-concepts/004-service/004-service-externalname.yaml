@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp # name of the service
+  labels:
+    app: myapp # label for the service
+    tier: service
+spec:
+  externalName: myapp.example.com # Domain name for the service
+  # ExternalName type map service to the specified DNS name.
+  # when you nslookup myapp.default.svc.cluster.local, the cluster DNS service will return the
+  # CNAME record pointed to the value myapp.example.com.
+  type: ExternalName

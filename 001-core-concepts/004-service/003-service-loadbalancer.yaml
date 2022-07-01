@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service # Service is a kubernetes resource that represents a load balancer.
+metadata:
+  name: myapp # name of the service
+  labels:
+    app: myapp # label for the service
+    tier: service
+spec:
+  selector:
+    app: myapp  # selector for the service
+  ports:
+  - port: 80 # port to expose
+    targetPort: 80 # container port
+    protocol: TCP # protocol to use for the port mapping ( example TCP, UDP, or SCTP)
+    name: http # name of the port
+  type: LoadBalancer # type of service to create, ClusterIP is the default. Others are NodePort, LoadBalancer, and ExternalName.
+  sessionAffinity: None # session affinity for the service

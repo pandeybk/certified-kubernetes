@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod # name of the pod
+  labels:
+    app: myapp # label for the pod
+    tier: pod
+spec:
+  containers:
+  - name: myapp-pod # name of the container
+    image: nginx:1.13 # image to use
+    imagePullPolicy: Always # Always pull the image from the registry, if not present locally. This is the default.

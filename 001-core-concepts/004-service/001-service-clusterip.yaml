@@ -1,0 +1,17 @@
+apiVersion: v1 # v1 is the default API version. It is the latest version of the Core API.
+kind: Service # Service is a collection of Pods that are running on a host.
+metadata:
+  name: myapp # name of the service
+  labels:
+    app: myapp # label for the service
+    tier: service
+spec:
+  selector:
+    app: myapp # label for the service
+  ports:
+  - port: 80 # port to expose
+    targetPort: 80 # container port
+    protocol: TCP # protocol to use for the port mapping ( example TCP, UDP, or SCTP)
+    name: http # name of the port
+  type: ClusterIP # type of service to create, ClusterIP is the default. Others are NodePort, LoadBalancer, and ExternalName.
+  sessionAffinity: None # session affinity for the service

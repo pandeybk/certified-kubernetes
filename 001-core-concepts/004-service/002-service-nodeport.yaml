@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp # name of the service
+  labels:
+    app: myapp # label for the service
+    tier: service
+spec:
+  selector:
+    app: myapp # selector for the service
+  ports:
+  - port: 80 # port to expose
+    targetPort: 80 # container port
+    nodePort: 30621 # you can hardcode the nodePort here or skip it and let kube-proxy assign a nodePort for you
+    protocol: TCP
+    name: http # name of the port
+  type: NodePort # type of service to create, ClusterIP is the default. Others are NodePort, LoadBalancer, and ExternalName.
+  # If you want to make sure  that connections from a particular client are passed to the same Pod each time, you can use session affinity to "ClientIP".
+  sessionAffinity: ClientIP # session affinity for the service, can be None or ClientIP
+  # this will set the maximum session sticky time for the service.
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 300 # timeout for the session affinity, default is 108000 seconds (10800 seconds = 3 hours)
