@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: myapp # label for the statefulset
   serviceName: myapp # name of the service, its a headless service, used to control the network domain
-  replicas: 3 # number of replicas
+  replicas: 5 # number of replicas
   template:
     metadata:
       labels:
