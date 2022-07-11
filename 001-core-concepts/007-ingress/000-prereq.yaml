@@ -1,0 +1,48 @@
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: goglides-foo-app
+  labels:
+    app: goglides-foo
+spec:
+  containers:
+  - name: goglides-foo-app
+    image: hashicorp/http-echo:0.2.3
+    args:
+    - "-text=goglides-foo hoooo"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: goglides-foo-service
+spec:
+  selector:
+    app: goglides-foo
+  ports:
+  # Default port used by the image
+  - port: 5678
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: goglides-bar-app
+  labels:
+    app: goglides-bar
+spec:
+  containers:
+  - name: goglides-bar-app
+    image: hashicorp/http-echo:0.2.3
+    args:
+    - "-text=goglides-bar boooo"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: goglides-bar-service
+spec:
+  selector:
+    app: goglides-bar
+  ports:
+  # Default port used by the image
+  - port: 5678
