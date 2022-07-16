@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: headless-nginx
+  labels:
+    app: headless-nginx # Deployment labels to match with replicaset labels and pods labels
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: headless-nginx # Replicaset to manage pods with labels
+  template:
+    metadata:
+      labels:
+        app: headless-nginx # Pods labels
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+---
+apiVersion: v1 # v1 is the default API version. It is the latest version of the Core API.
+kind: Service # Service is a collection of Pods that are running on a host.
+metadata:
+  name: headless-nginx # name of the service
+  labels:
+    app: headless-nginx # label for the service
+spec:
+  selector:
+    app: headless-nginx # label for the service
+  clusterIP: None # this is will point directly to pods, nslookup will rerun pod ips
+  ports:
+  - port: 80 # port to expose
+    targetPort: 80 # container port
+    protocol: TCP # protocol to use for the port mapping ( example TCP, UDP, or SCTP)
+  type: ClusterIP # type of service to create, ClusterIP is the default. Others are NodePort, LoadBalancer, and ExternalName.
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: normal-nginx
+  labels:
+    app: normal-nginx # Deployment labels to match with replicaset labels and pods labels
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: normal-nginx # Replicaset to manage pods with labels
+  template:
+    metadata:
+      labels:
+        app: normal-nginx # Pods labels
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+---
+apiVersion: v1 # v1 is the default API version. It is the latest version of the Core API.
+kind: Service # Service is a collection of Pods that are running on a host.
+metadata:
+  name: normal-nginx # name of the service
+  labels:
+    app: normal-nginx # label for the service
+spec:
+  selector:
+    app: normal-nginx # label for the service
+  ports:
+  - port: 80 # port to expose
+    targetPort: 80 # container port
+    protocol: TCP # protocol to use for the port mapping ( example TCP, UDP, or SCTP)
+  type: ClusterIP # type of service to create, ClusterIP is the default. Others are NodePort, LoadBalancer, and ExternalName.
