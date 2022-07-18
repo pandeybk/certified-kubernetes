@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: user
+  namespace: default
+rules:
+  - apiGroups: [""]
+    resources: ["pods"] # Specify the resource i.e pods which can be accessed
+    verbs: ["get", "watch", "list"] # Specify the actions to access kubernetes api
