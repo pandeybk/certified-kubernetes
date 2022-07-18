@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+  namespace: default
+  labels:
+    run: my-pod
+spec:
+  serviceAccountName: auth-account
+  containers:
+    - image: nginx
+      name: app-container
