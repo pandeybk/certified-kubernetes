@@ -113,7 +113,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
+            dbCreate: update
             url: jdbc:mysql://127.0.0.1/goglides?useUnicode=yes&character_set_server='utf8mb4'&autoReconnect=true&zeroDateTimeBehavior=convertToNull
     test:
         dataSource:
