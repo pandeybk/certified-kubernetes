@@ -2,7 +2,7 @@
 grails:
     profile: web
     codegen:
-        defaultPackage: kubernetes.certification
+        defaultPackage: demo
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
@@ -108,13 +108,13 @@ dataSource:
     jmxExport: true
     driverClassName: com.mysql.jdbc.Driver
     username: root
-    password: 'root'
+    password: 'rootroot'
 
 environments:
     development:
         dataSource:
-            dbCreate: update
-            url: jdbc:mysql://127.0.0.1/goglides?useUnicode=yes&character_set_server='utf8mb4'&autoReconnect=true&zeroDateTimeBehavior=convertToNull
+            dbCreate: create-drop
+            url:  jdbc:mysql://127.0.0.1/goglides?useUnicode=yes&character_set_server='utf8mb4'&autoReconnect=true&zeroDateTimeBehavior=convertToNull
     test:
         dataSource:
             dbCreate: update
@@ -122,9 +122,7 @@ environments:
     production:
         dataSource:
             dbCreate: update
-            username: goglides
-            password: passwordapp
-            url: jdbc:mysql://mysql/goglides?useUnicode=yes&character_set_server='utf8mb4'&autoReconnect=true&zeroDateTimeBehavior=convertToNull
+            url: jdbc:mysql://127.0.0.1/goglides?useUnicode=yes&character_set_server='utf8mb4'&autoReconnect=true&zeroDateTimeBehavior=convertToNull
             properties:
                 jmxEnabled: true
                 initialSize: 5
