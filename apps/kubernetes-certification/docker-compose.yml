@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - k8s
+  mysql:
+    image: "mysql"
+    container_name: "mysql"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "rootroot"
+      MYSQL_USER: "goglides"
+      MYSQL_PASSWORD: "passwordapp"
+    networks:
+      - k8s
+
+networks:
+  k8s:
+
+volumes:
+  mysqldata: {}  

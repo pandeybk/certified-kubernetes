@@ -1,0 +1,5 @@
+FROM openjdk:11 as BUILDER
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+RUN ./gradlew assemble
